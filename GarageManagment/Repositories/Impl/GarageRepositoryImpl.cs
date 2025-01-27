@@ -16,12 +16,14 @@ namespace GarageManagment.Repositories.Impl
 
         public void Add(Garage entity)
         {
-            throw new NotImplementedException();
+            context.Garages.Add(entity);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Garage garage = context.Garages.Find(id);
+            context.Garages.Remove(garage);
+
         }
 
         public async Task<IEnumerable<Garage>> GetAllAsync()
@@ -36,7 +38,7 @@ namespace GarageManagment.Repositories.Impl
 
         public void Save()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
 
         public void Update(Garage entity)

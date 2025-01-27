@@ -18,8 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICarRepository, CarRepositoryImpl>();
 builder.Services.AddScoped<ICarService, CarServiceImpl>();
-
-
+builder.Services.AddScoped<IGarageService, GarageServiceImpl>();
+builder.Services.AddScoped<IGarageRepository, GarageRepositoryImpl>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
