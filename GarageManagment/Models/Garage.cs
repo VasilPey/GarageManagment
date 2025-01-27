@@ -1,13 +1,15 @@
 ﻿namespace GarageManagment.Models
-    
+
 {
     using System.ComponentModel.DataAnnotations;
+    using System.Text.Json.Serialization;
     public class Garage
     {
         [Key]
+        [JsonIgnore]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
-        public List<Car> Car { get; set; } = null!;
+        public List<Car> Cars { get; set; } = null!;
     }
 }
