@@ -15,7 +15,7 @@
         public void addCar(Car car)
         {
             Car car1 = new Car();
-            car1.Make = car.Make;
+            car1.Brand = car.Brand;
             car1.Model = car.Model;
             car1.Color = car.Color;
             car1.HorsePower = car.HorsePower;
@@ -32,6 +32,11 @@
         public async Task<Car> getCarById(int carId)
         {
            return await carRepository.GetById(carId);
+        }
+
+        public void updateCar(int carId, Car car)
+        {
+            carRepository.Update(carId, car);
         }
     }
 }
