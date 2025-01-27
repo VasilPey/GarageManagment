@@ -40,7 +40,7 @@ namespace GarageManagment.Repositories.Impl
         {
             context.SaveChanges();
         }
-
+         
         public void Update(Garage entity)
         {
             throw new NotImplementedException();
