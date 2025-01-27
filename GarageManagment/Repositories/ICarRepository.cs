@@ -7,7 +7,7 @@ namespace GarageManagment.Repositories
         Task<IEnumerable<Car>> GetAllAsync();
          Task <Car> GetById(int id);
         void Add(Car entity);
-        void Update(Car entity);
+        Task<Car> Update(int id, Car entity);
         void Delete(int id);
         void Save();
     }

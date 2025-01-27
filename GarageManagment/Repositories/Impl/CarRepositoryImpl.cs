@@ -43,7 +43,7 @@ namespace GarageManagment.Repositories.Impl
             return await context.Cars.ToListAsync();
         }
 
-        async Task<Car> ICarRepository.GetById(int id)
+       public async Task<Car> GetById(int id)
         {
             Car car = await context.Cars.FindAsync(id);
             if (car != null)
@@ -53,9 +53,19 @@ namespace GarageManagment.Repositories.Impl
             else throw new Exception($"Car with id {id} is not found");
         }
 
-        void ICarRepository.Update(Car entity)
+       public async Task<Car> Update(int id, Car entity)
         {
-            throw new NotImplementedException();
+            Car car = await GetById(id);
+            car.id = entity.id;
+            car.Brand = entity.Brand;
+            car.Model = entity.Model;
+            car.Color = entity.Color;
+            car.YearOfProduction = entity.YearOfProduction;
+            car.HorsePower = entity.HorsePower;          
+            context.SaveChanges();
+            
+            return car;
+
         }
 
         #endregion

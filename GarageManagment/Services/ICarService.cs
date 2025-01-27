@@ -9,5 +9,7 @@ namespace GarageManagment.Services
         public Task<IEnumerable<Car>> getAll();
         public Task<Car> getCarById(int carId);
         public void addCar(Car car);
+
+        public void updateCar(int carId, Car car);
     }
 }
