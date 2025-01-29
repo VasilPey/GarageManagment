@@ -14,9 +14,38 @@ namespace GarageManagment.Repositories.Impl
             this.context = context;
         }
 
-        public void Add(Garage entity)
+        public void AddGarage(Garage garage)
         {
-            context.Garages.Add(entity);
+            
+            var newGarage = new Garage
+            {
+                Name = garage.Name,
+                Location = garage.Location,
+                Cars = new List<Car>() 
+            };
+
+            
+            foreach (var car in garage.Cars)
+            {
+                
+                var existingCar = context.Cars.Local.FirstOrDefault(c => c.id == car.id);
+
+                if (existingCar == null)
+                {
+                    
+                    context.Attach(car);
+                    newGarage.Cars.Add(car);
+                }
+                else
+                {
+                    
+                    newGarage.Cars.Add(existingCar);
+                }
+            }
+
+            
+            context.Garages.Add(newGarage);
+            context.SaveChanges();
         }
 
         public void Delete(int id)

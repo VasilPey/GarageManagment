@@ -1,5 +1,6 @@
 ﻿using GarageManagment.Models;
 using GarageManagment.Repositories;
+using Microsoft.EntityFrameworkCore;
 namespace GarageManagment.Services.Impl
 {
     public class GarageServiceImpl : IGarageService
@@ -14,12 +15,8 @@ namespace GarageManagment.Services.Impl
 
         public void addGarage(Garage garage)
         {
-            Garage garage1 = new Garage();
-            garage1.Name = garage.Name;
-            garage1.Location = garage.Location;
-            garage1.Cars = garage.Cars;
-            garageRepository.Add(garage1);
-            garageRepository.Save();
+           garageRepository.AddGarage(garage);
+             
         }
 
         public void deleteGarage(int garageId)
