@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GarageManagment.Models;
 using GarageManagment.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 namespace GarageManagment.Controllers
 {
     [ApiController]
@@ -17,6 +18,23 @@ namespace GarageManagment.Controllers
         {
             garageService.addGarage(garage);
         }
+        [HttpDelete("delete/{id}")]
+        public void deleteGarage(int id)
+        {
+            garageService.deleteGarage(id);
+        }
+        [HttpPut("update/{garageid}")]
+        public void updateGarage(int garageid, Garage garage)  
+        {
+            garageService.updateGarage(garageid, garage);
+        }
+        [HttpGet]
+        public async Task <IActionResult> getAll()
+        {
+            IEnumerable<Garage> list = await garageService.getAll();
+            return Ok(list);
+        }
+
 
     }
 }

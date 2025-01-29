@@ -22,28 +22,42 @@ namespace GarageManagment.Repositories.Impl
         public void Delete(int id)
         {
             Garage garage = context.Garages.Find(id);
-            context.Garages.Remove(garage);
+            if (garage != null)
+            {
+                context.Garages.Remove(garage);
 
+            }
+            else throw new Exception($"Garage with id {id} cannot be found");
         }
-
         public async Task<IEnumerable<Garage>> GetAllAsync()
         {
             return await context.Garages.ToListAsync();
         }
 
-        public Task<Garage> GetById(int id)
+        public async Task<Garage> GetById(int id)
         {
-            throw new NotImplementedException();
+            Garage garage = await context.Garages.FindAsync(id);
+            if (garage != null)
+            {
+                return garage;
+            }
+            else
+            {
+                throw new Exception($"garage with id {id} is not found");
+            }
         }
-
         public void Save()
         {
             context.SaveChanges();
         }
          
-        public void Update(Garage entity)
+        public async void Update(int garageid, Garage entity)
         {
-            throw new NotImplementedException();
+            Garage garage = await context.Garages.FindAsync(garageid);
+            garage.Name = entity.Name;
+            garage.Location = entity.Location;
+            garage.Cars = entity.Cars;
+            Save();
         }
     }
 }
