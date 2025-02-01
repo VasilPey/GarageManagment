@@ -60,7 +60,7 @@ namespace GarageManagment.Repositories.Impl
         }
         public async Task<IEnumerable<Garage>> GetAllAsync()
         {
-            return await context.Garages.ToListAsync();
+            return await context.Garages.Include(g => g.Cars).ToListAsync();
         }
 
         public async Task<Garage> GetById(int id)
