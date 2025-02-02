@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using GarageManagment.Models;
 using Microsoft.EntityFrameworkCore.Update.Internal;
+using GarageManagment.Validators;
 
 namespace GarageManagment.Controllers
 {
@@ -10,9 +11,11 @@ namespace GarageManagment.Controllers
     public class CarController : Controller
     {
         ICarService carService;
-       public CarController(ICarService carService) {
+        CarValidator carValidator;
+        
+       public CarController(ICarService carService, CarValidator carValidator) {
             this.carService = carService;
-
+            this.carValidator = carValidator;
         }
 
         [HttpGet]

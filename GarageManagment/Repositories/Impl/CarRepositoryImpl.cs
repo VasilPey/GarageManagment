@@ -21,7 +21,7 @@ namespace GarageManagment.Repositories.Impl
         {
             context.SaveChanges();
         }
-        void ICarRepository.Add(Car entity)
+         void ICarRepository.Add(Car entity)
         {
             context.Cars.Add(entity);
             

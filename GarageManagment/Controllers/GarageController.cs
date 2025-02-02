@@ -2,6 +2,7 @@
 using GarageManagment.Models;
 using GarageManagment.Services;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using GarageManagment.Validators;
 namespace GarageManagment.Controllers
 {
     [ApiController]
@@ -12,6 +13,7 @@ namespace GarageManagment.Controllers
         public GarageController(IGarageService garageService)
         {
             this.garageService = garageService;
+           
         }
         [HttpPost("add")]
         public void addGarage(Garage garage)

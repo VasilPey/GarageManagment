@@ -5,6 +5,9 @@ using GarageManagment.Services;
 using GarageManagment.Services.Impl;
 using GarageManagment.Repositories.Impl;
 using GarageManagment.Repositories;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using GarageManagment.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -20,6 +23,10 @@ builder.Services.AddScoped<ICarRepository, CarRepositoryImpl>();
 builder.Services.AddScoped<ICarService, CarServiceImpl>();
 builder.Services.AddScoped<IGarageService, GarageServiceImpl>();
 builder.Services.AddScoped<IGarageRepository, GarageRepositoryImpl>();
+builder.Services
+    .AddValidatorsFromAssemblyContaining<CarValidator>()
+    .AddValidatorsFromAssemblyContaining<GarageValidators>();
+builder.Services.AddFluentValidationAutoValidation();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
