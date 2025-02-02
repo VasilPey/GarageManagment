@@ -8,6 +8,8 @@ using GarageManagment.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using GarageManagment.Validators;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -27,6 +29,16 @@ builder.Services
     .AddValidatorsFromAssemblyContaining<CarValidator>()
     .AddValidatorsFromAssemblyContaining<GarageValidators>();
 builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddHealthChecks();
+
+var logger = new LoggerConfiguration()
+               .Enrich.FromLogContext()
+               .WriteTo.Console(theme:
+                   AnsiConsoleTheme.Code)
+               .CreateLogger();
+
+builder.Logging.AddSerilog(logger);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,9 +48,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.UseHttpsRedirection();
-
+app.MapHealthChecks("/health");
 app.UseAuthorization();
 
 app.MapControllers();
